@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="card mt-5 rounded-4 responsive-card">
+    <div class="card-header border-0">
+      <h5 class="mb-0 p-4">Todo table</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table align-items-center table-flush">
+        <thead class="thead-light">
+          <tr class="text-center">
+            <th scope="col">Index</th>
+            <th scope="col">Function</th>
+            <th scope="col">Status</th>
+            <th scope="col">Complete</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let task of taskArr; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ task.task_name }}</td>
+            <td>
+              <span
+                class="badge badge-dot"
+                [ngClass]="{
+                  'text-success': task.completed,
+                  'text-danger': !task.completed
+                }"
+              >
+                <i>{{ task.status }}</i>
+              </span>
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                [checked]="task.completed"
+                (change)="completeTask(task)"
+              />
+            </td>
+            <td>
+              <p
+                class="text-success"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop1"
+                (click)="call(task)"
+                style="cursor: pointer;"
+              >
+                Edit
+              </p>
+            </td>
+            <td>
+              <p class="text-danger" style="cursor: pointer;" (click)="deleteTask(task)">Delete</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      class="modal fade"
+      id="staticBackdrop1"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Task</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group p-4">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Update The task"
+                name="task"
+                [(ngModel)]="editTaskValue"
+              />
+              <button
+                class="btn btn-outline-success"
+                type="button"
+                (click)="editTask()"
+                data-bs-dismiss="modal"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
