@@ -5,8 +5,9 @@
         <app-sidebar></app-sidebar>
       </div>
       <div class="col-md-10">
-        <app-navbar></app-navbar>
-        <app-table></app-table>
+        <app-navbar (taskAdded)="tableComponent.onTaskAdded($event)"></app-navbar>
+        <app-table #tableComponent></app-table>
+        
       </div>
     </div>
   </div>

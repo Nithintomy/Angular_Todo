@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons'; 
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +14,7 @@ import { CrudService } from '../service/crud.service';
 })
 export class NavbarComponent {
   faUser = faUser;
-  faHome= faHome;
+  faHome = faHome;
   faSearch = faSearch;
   faCog = faCog;
   faBell = faBell; 
@@ -22,6 +22,8 @@ export class NavbarComponent {
   taskObj: Task = new Task();
   taskArr: Task[] = [];
   addTaskValue: string = '';
+
+  @Output() taskAdded = new EventEmitter<Task>();
 
   constructor(private crudService: CrudService) { }
 
@@ -44,9 +46,8 @@ export class NavbarComponent {
     if (this.addTaskValue.trim()) {
       this.taskObj.task_name = this.addTaskValue;
       this.crudService.addTask(this.taskObj).subscribe(res => {
-        // Directly push the new task into the taskArr array
         this.taskArr.push(res);
-     
+        this.taskAdded.emit(res); // Emit the event with the new task
         this.addTaskValue = '';
       }, err => {
         alert("Failed to add task");

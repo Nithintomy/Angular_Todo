@@ -11,7 +11,7 @@ export class CrudService {
   serviceURL: string;
 
   constructor(private http: HttpClient) {
-    this.serviceURL = "http://localhost:3000/tasks";
+    this.serviceURL = "http://localhost:5000/tasks"; 
   }
 
   addTask(task: Task): Observable<Task> {
@@ -23,11 +23,12 @@ export class CrudService {
     return this.http.get<Task[]>(this.serviceURL);
   }
 
+ 
   deleteTask(task: Task): Observable<void> {
-    return this.http.delete<void>(`${this.serviceURL}/${task.id}`);
+    return this.http.delete<void>(`${this.serviceURL}/${task._id}`);
   }
 
   editTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.serviceURL}/${task.id}`, task);
+    return this.http.put<Task>(`${this.serviceURL}/${task._id}`, task);
   }
 }

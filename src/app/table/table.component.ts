@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Task } from '../model/task';
 import { CrudService } from '../service/crud.service';
 
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
